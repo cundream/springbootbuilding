@@ -1,6 +1,7 @@
 package com.github.cundream.springbootbuilding.controller;
 
 import com.github.cundream.springbootbuilding.common.properties.RedisProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 测试web
  */
 @RestController
+@Slf4j
 public class TestController {
 
     @Autowired
@@ -24,6 +26,11 @@ public class TestController {
 
     @RequestMapping(value = "/read",method = RequestMethod.GET)
     public String read(){
+
+        log.info("info 日志");
+        log.error("error 日志");
+        log.warn("warn 日志");
+
         return redisProperties.read();
     }
 
