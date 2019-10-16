@@ -1,5 +1,6 @@
 package com.github.cundream.springbootbuilding;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -8,7 +9,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 /**
  * @author Lison
  */
-
+@MapperScan("com.github.cundream.springbootbuilding.mapper")
 @SpringBootApplication
 public class SpringbootbuildingApplication  extends SpringBootServletInitializer {
 
