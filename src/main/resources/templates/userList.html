@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>编号</td>
+        <td>用户名</td>
+        <td>密码</td>
+        <td>别名</td>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.userName}"></td>
+        <td th:text="${user.passWord}"></td>
+        <td th:text="${user.realName}"></td>
+    </tr>
+</table>
+</body>
+<script th:inline="javascript">
+    var thymeleafName = [[${thymeleafName}]];
+    console.log(thymeleafName)
+</script>
+</html>
