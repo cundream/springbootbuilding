@@ -1,6 +1,5 @@
 package com.github.cundream.springbootbuilding.interceptor;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -96,7 +95,7 @@ public class MybatisInterceptor implements Interceptor {
         Object parameterObject = boundSql.getParameterObject();
         List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         String sql = boundSql.getSql().replaceAll("[\\s]+", " ");
-        if (CollectionUtils.isNotEmpty(parameterMappings) && parameterObject != null) {
+        if (!parameterMappings.isEmpty() && parameterObject != null) {
             TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
             if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
                 sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(parameterObject)));
