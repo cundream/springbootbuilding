@@ -18,7 +18,7 @@ import java.sql.SQLException;
  * @Date: 2019/10/16 11:40
  * @Description: druid 配置.这样的方式不需要添加注解
  */
-@Configuration
+//@Configuration
 public class DruidConfig {
     private Logger logger = Logger.getLogger(DruidConfig.class);
 

@@ -67,6 +67,12 @@ public class UserController {
     public String updateUser(@RequestHeader String id, @RequestParam String userName, @PathVariable String passWord, @RequestBody String realName){
         return "{'id': " + id + ", 'userName':" + userName + ", 'passWord':" + passWord + ", 'realName':" + realName +"}";
     }
+    @PutMapping("/addUserInfo")
+    public String addUserInfo(){
+        userService.addUserInfo();
+        return "";
+    }
+
 
 
 

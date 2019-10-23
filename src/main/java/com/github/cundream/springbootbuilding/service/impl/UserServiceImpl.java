@@ -17,11 +17,22 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public List<User> getUserById() {
         return userMapper.listUsers();
+    }
+
+    @Override
+    public void addUserInfo() {
+        User user = new User();
+        user.setId(3);
+        user.setPassWord("123456");
+        user.setRealName("测试名字");
+        user.setUserName("用户名");
+        userMapper.addUserInfo(user);
+
     }
 
 }

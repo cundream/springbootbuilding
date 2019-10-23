@@ -1,0 +1,113 @@
+# Server settings (ServerProperties)
+#端口
+server:
+  port: 8082
+  address: 127.0.0.1
+#server.sessionTimeout=30
+#访问路径名称
+  servlet:
+    context-path: /bootbuliding
+  ssl:
+    key-store: classpath:cundream.p12
+    key-alias: springboothttps
+    key-store-password: cundream
+
+
+
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    master:
+      jdbc-url: jdbc:mysql://192.168.237.63:3306/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+    slave1:
+      jdbc-url: jdbc:mysql://192.168.237.63:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+    slave2:
+      jdbc-url: jdbc:mysql://192.168.237.63:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+    timeout: 5000ms
+
+
+
+
+
+# Mybatis配置
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  level:
+    com:
+      github:
+        cundream:
+          springbootbuilding:
+            mapper: debug
+
+## 自定义属性配置加载
+com:
+  cundream:
+    title: Spring Boot教程--Lison
+    name: Lison SpringBoot 系统构建
+    desc: ${com.cundream.name}
+    value: ${random.value}

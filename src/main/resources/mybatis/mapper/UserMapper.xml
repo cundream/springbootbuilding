@@ -14,5 +14,9 @@
         select * from user
     </select>
 
+    <insert id="addUserInfo" parameterType="com.github.cundream.springbootbuilding.entity.User">
+        INSERT INTO `user`(`id`, `userName`, `passWord`, `realName`) VALUES (#{id}, #{userName}, #{passWord}, #{realName})
+    </insert>
+
 
 </mapper>
