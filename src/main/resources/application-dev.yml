@@ -1,10 +1,10 @@
 # Server settings (ServerProperties)
-#�˿�
+#�˿�
 server:
   port: 8082
   address: 127.0.0.1
 #server.sessionTimeout=30
-#����·������
+#����·������
   servlet:
     context-path: /bootbuliding
   ssl:
@@ -16,6 +16,45 @@ server:
 
 
 spring:
+  swagger:
+    #是否开启
+    enabled: true
+    title: SpringBootBuilding系统构建
+    description: 这是一个描述
+    version: 1.0.0-SNAPSHOT
+    contact:
+      name: Lison
+      email: cundream@163.com
+    # swagger扫描的基础包，默认：全扫描
+    #base-package:
+    #需要处理的基础URL规则，默认：/**
+    #base-path:
+    #需要排除的URL规则，默认：空
+    #exclude-path:
+    security:
+      filter-plugin: true
+      username: Lison
+      password: 123456
+    #是否启用 swagger登陆验证
+    global-response-messages:
+      GET[0]:
+        code: 400
+        message: Bad Request，一般为请求参数不对
+      GET[1]:
+        code: 404
+        message: NOT FOUND，一般为请求路径不对
+      GET[2]:
+        code: 500
+        message: ERROR，一般为程序内部错误
+      POST[0]:
+        code: 400
+        message: Bad Request，一般为请求参数不对
+      POST[1]:
+        code: 404
+        message: NOT FOUND，一般为请求路径不对
+      POST[2]:
+        code: 500
+        message: ERROR，一般为程序内部错误
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     master:
@@ -92,9 +131,19 @@ spring:
 
 
 
-# Mybatis����
+# Mybatis����
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+
+
+pagehelper:
+  auto-dialect: true
+  helper-dialect: mysql
+  reasonable: true
+  params: count=countSql
 
 logging:
   level:
@@ -104,10 +153,10 @@ logging:
           springbootbuilding:
             mapper: debug
 
-## �Զ����������ü���
+## �Զ����������ü���
 com:
   cundream:
-    title: Spring Boot�̳�--Lison
-    name: Lison SpringBoot ϵͳ����
+    title: Spring Boot�̳�--Lison
+    name: Lison SpringBoot ϵͳ����
     desc: ${com.cundream.name}
     value: ${random.value}

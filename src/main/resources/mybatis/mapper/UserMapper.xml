@@ -10,9 +10,6 @@
         <result column="realName" jdbcType="VARCHAR" property="realName" />
     </resultMap>
 
-    <select id="listUsers" resultType="com.github.cundream.springbootbuilding.entity.User">
-        select * from user
-    </select>
 
     <insert id="addUserInfo" parameterType="com.github.cundream.springbootbuilding.entity.User">
         INSERT INTO `user`(`id`, `userName`, `passWord`, `realName`) VALUES (#{id}, #{userName}, #{passWord}, #{realName})

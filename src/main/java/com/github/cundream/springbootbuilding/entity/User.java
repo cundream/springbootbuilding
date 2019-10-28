@@ -1,6 +1,14 @@
 package com.github.cundream.springbootbuilding.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import tk.mybatis.mapper.annotation.KeySql;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author : Lison
@@ -8,8 +16,19 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class User {
-    private Integer id;
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "user")
+public class User implements Serializable {
+
+    /**
+     * 主键
+     */
+    @Id
+    @KeySql(useGeneratedKeys = true)
+    private Long id;
+
     private String userName;
     private String passWord;
     private String realName;

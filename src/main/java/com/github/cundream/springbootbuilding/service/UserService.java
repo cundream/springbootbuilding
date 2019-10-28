@@ -1,6 +1,7 @@
 package com.github.cundream.springbootbuilding.service;
 
 import com.github.cundream.springbootbuilding.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 

@@ -22,8 +22,8 @@ import java.util.List;
  * @Date: 2019/10/16 15:08
  * @Description:
  */
-@Configuration
-@EnableSwagger2
+//@Configuration
+//@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean

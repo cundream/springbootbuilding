@@ -3,6 +3,7 @@ package com.github.cundream.springbootbuilding.service.impl;
 import com.github.cundream.springbootbuilding.entity.User;
 import com.github.cundream.springbootbuilding.mapper.UserMapper;
 import com.github.cundream.springbootbuilding.service.UserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUserInfo() {
         User user = new User();
-        user.setId(3);
+        user.setId(3L);
         user.setPassWord("123456");
         user.setRealName("测试名字");
         user.setUserName("用户名");
