@@ -1,18 +1,18 @@
 # Server settings (ServerProperties)
-#¶Ë¿Ú
+#ç«¯å£
 server:
   port: 8082
   address: 127.0.0.1
   #server.sessionTimeout=30
-  #·ÃÎÊÂ·¾¶Ãû³Æ
+  #è®¿é—®è·¯å¾„åç§°
   servlet:
     context-path: /bootbuliding
 
 
-## ×Ô¶¨ÒåÊôĞÔÅäÖÃ¼ÓÔØ
+## è‡ªå®šä¹‰è¾“å…¥
 com:
   cundream:
-    title: Spring Boot½Ì³Ì--Lison
-    name: Lison SpringBoot ÏµÍ³¹¹½¨
+    title: Spring Bootç³»ç»Ÿæ„å»º--Lison
+    name: Lison SpringBoot
     desc: ${com.cundream.name}
     value: ${random.value}

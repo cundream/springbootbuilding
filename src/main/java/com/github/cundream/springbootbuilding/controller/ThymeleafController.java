@@ -25,7 +25,7 @@ public class ThymeleafController {
     @RequestMapping(value = "/userList",method = RequestMethod.GET)
     public String userList(Model model){
 
-        model.addAttribute("users", userService.getUserById());
+        model.addAttribute("users", userService.getUserList());
         model.addAttribute("thymeleafName", "thymeleafName ----6666666");
 
         return "userList";

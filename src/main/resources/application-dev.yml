@@ -1,10 +1,10 @@
 # Server settings (ServerProperties)
-#�˿�
+#端口
 server:
   port: 8082
   address: 127.0.0.1
 #server.sessionTimeout=30
-#����·������
+#访问路径名称
   servlet:
     context-path: /bootbuliding
   ssl:
@@ -31,11 +31,11 @@ spring:
     #base-path:
     #需要排除的URL规则，默认：空
     #exclude-path:
+    #是否启用 swagger登陆验证
     security:
       filter-plugin: true
       username: Lison
       password: 123456
-    #是否启用 swagger登陆验证
     global-response-messages:
       GET[0]:
         code: 400
@@ -55,6 +55,17 @@ spring:
       POST[2]:
         code: 500
         message: ERROR，一般为程序内部错误
+    global-operation-parameters:
+      - description: 'Token 必填项'
+        modelRef: 'string'
+        name: 'Authorization'
+        parameter-type: 'header'
+        required: true
+      - description:
+        modelRef: 'long'
+        name: 'schoolId'
+        parameter-type: 'header'
+        required: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     master:
@@ -114,6 +125,21 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 50
       removeAbandoned: true
       filters: stat
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect:  org.hibernate.dialect.MySQL57InnoDBDialect
+    database: mysql
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
   redis:
     database: 0
     host: 127.0.0.1
@@ -128,10 +154,16 @@ spring:
     timeout: 5000ms
 
 
+jwt:
+  config:
+    key: Lison
+    ttl: 1800000
+    remeber: 604800000
 
 
 
-# Mybatis����
+
+# Mybatis配置
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
@@ -150,13 +182,31 @@ logging:
     com:
       github:
         cundream:
-          springbootbuilding:
-            mapper: debug
+          springbootbuilding: debug
 
-## �Զ����������ü���
+
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+        - "/api/auth/login"
+        - "/api/auth/logout"
+        - "/v2/swagger-login"
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/test/*"
+      get:
+        - "/**/*.html"
+        - "/swagger**"
+        - "/static/**"
+        - "/v2/api-docs"
+
+
+## 自定义输入
 com:
   cundream:
-    title: Spring Boot�̳�--Lison
-    name: Lison SpringBoot ϵͳ����
+    title: Spring Boot系统构建--Lison
+    name: Lison SpringBoot
     desc: ${com.cundream.name}
-    value: ${random.value}
+    value: ${random.value}N

@@ -23,7 +23,7 @@ public interface UserMapper extends Mapper<User> , MySqlMapper<User> {
      *
      * @return 用户列表
      */
-    @Select("select * from user")
+    @Select("select * from sec_user")
     List<User> listUsers();
 
     /**

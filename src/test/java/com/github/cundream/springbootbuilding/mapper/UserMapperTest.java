@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class UserMapperTest extends SpringbootbuildingApplicationTests {
-    @Autowired
+    /*@Autowired
     private UserMapper userMapper;
 
     @Test
     public void testInsert() {
         Long id = IdUtil.newInstance().nextId();
-        User testSave3 = User.builder().id(id).userName("testSave3").passWord("123456").build();
+        User testSave3 = User.builder().id(id).username("testSave3").password("123456").build();
         userMapper.insertUseGeneratedKeys(testSave3);
         Assert.assertNotNull(testSave3.getId());
         log.debug("【测试主键回写#testSave3.getId()】= {}", testSave3.getId());
@@ -41,7 +41,7 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         List<User> userList = Lists.newArrayList();
         for (long i = 5; i < 14; i++) {
             Long salt = IdUtil.newInstance().nextId();
-            User user = User.builder().id(i).userName("testSave"+i).passWord("123456").realName("test"+i).build();
+            User user = User.builder().id(i).username("testSave"+i).password("123456").nickname("test"+i).build();
             userList.add(user);
         }
         int i = userMapper.insertList(userList);
@@ -50,9 +50,9 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         log.debug("【测试主键回写#userList.ids】= {}", ids);
     }
 
-    /**
+    *//**
      * 测试通用Mapper - 删除
-     */
+     *//*
     @Test
     public void testDelete() {
         Long primaryKey = 1L;
@@ -62,25 +62,25 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         Assert.assertNull(user);
     }
 
-    /**
+    *//**
      * 测试通用Mapper - 更新
-     */
+     *//*
     @Test
     public void testUpdate() {
         Long primaryKey = 2L;
         User user = userMapper.selectByPrimaryKey(primaryKey);
-        user.setUserName("通用Mapper名字更新");
+        user.setUsername("通用Mapper名字更新");
         int i = userMapper.updateByPrimaryKeySelective(user);
         Assert.assertEquals(1, i);
         User update = userMapper.selectByPrimaryKey(primaryKey);
         Assert.assertNotNull(update);
-        Assert.assertEquals("通用Mapper名字更新", update.getUserName());
+        Assert.assertEquals("通用Mapper名字更新", update.getUsername());
         log.debug("【update】= {}", update);
     }
 
-    /**
+    *//**
      * 测试通用Mapper - 查询单个
-     */
+     *//*
     @Test
     public void testQueryOne(){
         User user = userMapper.selectByPrimaryKey(2L);
@@ -88,9 +88,9 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         log.debug("【user】= {}", user);
     }
 
-    /**
+    *//**
      * 测试通用Mapper - 查询全部
-     */
+     *//*
     @Test
     public void testQueryAll() {
         List<User> users = userMapper.selectAll();
@@ -98,9 +98,9 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         log.debug("【users】= {}", users);
     }
 
-    /**
+    *//**
      * 测试分页助手 - 分页排序查询
-     */
+     *//*
     @Test
     public void testQueryByPageAndSort() {
         initData();
@@ -116,9 +116,9 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         log.debug("【userPageInfo】= {}", userPageInfo);
     }
 
-    /**
+    *//**
      * 测试通用Mapper - 条件查询
-     */
+     *//*
     @Test
     public void testQueryByCondition() {
         initData();
@@ -138,11 +138,11 @@ public class UserMapperTest extends SpringbootbuildingApplicationTests {
         log.debug("【userPageInfo】= {}", userPageInfo);
     }
 
-    /**
+    *//**
      * 初始化数据
-     */
+     *//*
     private void initData() {
         testInsertList();
-    }
+    }*/
 
 }

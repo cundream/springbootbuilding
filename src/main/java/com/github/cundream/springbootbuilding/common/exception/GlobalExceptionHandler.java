@@ -1,16 +1,27 @@
 package com.github.cundream.springbootbuilding.common.exception;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.json.JSONUtil;
 import com.github.cundream.springbootbuilding.common.controller.ResponseWrapper;
 import com.github.cundream.springbootbuilding.common.controller.ResponseWrapperMapper;
+import com.github.cundream.springbootbuilding.common.enums.ErrorCodeEnum;
 import com.github.cundream.springbootbuilding.utils.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 
 /**
@@ -131,6 +142,35 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseWrapper exception(Exception e) {
         String message = ExceptionUtil.getFriendlyErrorMsg(e, "全局", applicationName, profileActive);
+        if (e instanceof NoHandlerFoundException) {
+            log.error("【全局异常拦截】NoHandlerFoundException: 请求方法 {}, 请求路径 {}", ((NoHandlerFoundException) e).getRequestURL(), ((NoHandlerFoundException) e).getHttpMethod());
+            return ofErrorCode(ErrorCodeEnum.REQUEST_NOT_FOUND);
+        } else if (e instanceof HttpRequestMethodNotSupportedException) {
+            log.error("【全局异常拦截】HttpRequestMethodNotSupportedException: 当前请求方式 {}, 支持请求方式 {}", ((HttpRequestMethodNotSupportedException) e).getMethod(), JSONUtil.toJsonStr(((HttpRequestMethodNotSupportedException) e).getSupportedHttpMethods()));
+            return ofErrorCode(ErrorCodeEnum.HTTP_BAD_METHOD);
+        } else if (e instanceof MethodArgumentNotValidException) {
+            log.error("【全局异常拦截】MethodArgumentNotValidException", e);
+            return ResponseWrapperMapper.wrap(ErrorCodeEnum.BAD_REQUEST.code(), ((MethodArgumentNotValidException) e).getBindingResult()
+                    .getAllErrors()
+                    .get(0)
+                    .getDefaultMessage(), null);
+        } else if (e instanceof ConstraintViolationException) {
+            log.error("【全局异常拦截】ConstraintViolationException", e);
+            return ResponseWrapperMapper.wrap(ErrorCodeEnum.BAD_REQUEST.code(), CollUtil.getFirst(((ConstraintViolationException) e).getConstraintViolations())
+                    .getMessage(), null);
+        } else if (e instanceof MethodArgumentTypeMismatchException) {
+            log.error("【全局异常拦截】MethodArgumentTypeMismatchException: 参数名 {}, 异常信息 {}", ((MethodArgumentTypeMismatchException) e).getName(), ((MethodArgumentTypeMismatchException) e).getMessage());
+            return ofErrorCode(ErrorCodeEnum.PARAM_NOT_MATCH);
+        } else if (e instanceof HttpMessageNotReadableException) {
+            log.error("【全局异常拦截】HttpMessageNotReadableException: 错误信息 {}", ((HttpMessageNotReadableException) e).getMessage());
+            return ofErrorCode(ErrorCodeEnum.PARAM_NOT_NULL);
+        } else if (e instanceof BadCredentialsException) {
+            log.error("【全局异常拦截】BadCredentialsException: 错误信息 {}", e.getMessage());
+            return ofErrorCode(ErrorCodeEnum.USERNAME_PASSWORD_ERROR);
+        } else if (e instanceof DisabledException) {
+            log.error("【全局异常拦截】BadCredentialsException: 错误信息 {}", e.getMessage());
+            return ofErrorCode(ErrorCodeEnum.USER_DISABLED);
+        }
         log.error(message);
         return ResponseWrapperMapper.error("服务器繁忙.....");
     }
@@ -149,4 +189,9 @@ public class GlobalExceptionHandler {
         log.error(message);
         return ResponseWrapperMapper.error("操作失败，数据异常");
     }
+
+    private static ResponseWrapper ofErrorCode(ErrorCodeEnum errorCodeEnum){
+        return ResponseWrapperMapper.wrap(errorCodeEnum.code(),errorCodeEnum.msg());
+    }
+
 }

@@ -38,7 +38,7 @@ public class UserController {
     @RequestMapping(value = "getUserList", method = RequestMethod.GET)
     @ApiOperation(httpMethod = "GET",value = "获取用户列表")
     public List<User> GetUser(){
-        return userService.getUserById();
+        return userService.getUserList();
     }
 
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")

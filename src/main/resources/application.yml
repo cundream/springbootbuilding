@@ -1,7 +1,7 @@
-#¸ù¾İ»·¾³¶ÁÈ¡ÅäÖÃÎÄ¼ş
-#application-test.yml£º²âÊÔ»·¾³
-#application-dev.yml£º¿ª·¢»·¾³
-#application-prod.yml: Éú²ú»·¾³
+#æ ¹æ®ç¯å¢ƒè¯»å–é…ç½®æ–‡ä»¶
+#application-test.propertiesï¼šæµ‹è¯•ç¯å¢ƒ
+#application-dev.propertiesï¼šå¼€å‘ç¯å¢ƒ
+#application-prod.propertiesï¼šç”Ÿäº§ç¯å¢ƒ
 spring:
   profiles:
     active: dev

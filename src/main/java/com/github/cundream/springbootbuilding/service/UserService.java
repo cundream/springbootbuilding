@@ -11,7 +11,7 @@ import java.util.List;
  * @Description:
  */
 public interface UserService {
-    List<User> getUserById();
+    List<User> getUserList();
 
     void addUserInfo();
 }
