@@ -2,7 +2,7 @@
 #端口
 server:
   port: 8082
-  address: 127.0.0.1
+  address: 0.0.0.0
 #server.sessionTimeout=30
 #访问路径名称
   servlet:

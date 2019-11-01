@@ -35,6 +35,7 @@
         <com.dyuproject.protostuff.version>1.1.2</com.dyuproject.protostuff.version>
         <org.apache.commons.version>3.8</org.apache.commons.version>
         <jjwt.veersion>0.9.1</jjwt.veersion>
+        <docker.image.prefix>springboot</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -228,12 +229,54 @@
 
     </dependencies>
 
+    <profiles>
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!-- saas环境 -->
+        <profile>
+            <id>saas</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!-- Docker maven plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <!-- Docker maven plugin -->
         </plugins>
     </build>
 
