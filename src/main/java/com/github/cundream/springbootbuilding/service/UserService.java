@@ -14,4 +14,6 @@ public interface UserService {
     List<User> getUserList();
 
     void addUserInfo();
+
+    User getUserinfo(Long userId);
 }

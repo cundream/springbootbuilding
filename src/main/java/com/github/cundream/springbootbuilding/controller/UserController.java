@@ -44,14 +44,11 @@ public class UserController {
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     @ApiResponses({
             @ApiResponse(code = 200, message = "success"),
-            @ApiResponse(code = 10001, message = "secret_key与token不符合"),
             @ApiResponse(code = 10002, message = "获取用户信息错误", response = Exception.class)
     })
     @PostMapping("/getUserinfo")
-    public String getUsesrInfo(@ApiParam(name = "secret_key", value = "秘钥", required = true) @RequestParam String secret_key,
-                           @ApiParam(name = "token", value = "token", required = true) @RequestParam String token,
-                           @ApiParam(name = "type", value = "用户类型", required = true) @RequestParam String type){
-        return "{'type': " + type + ", 'url': 'rtmp://localhost/user', 'urlHD': 'rtmp://localhost/hd/user'}";
+    public User getUsesrInfo(@ApiParam(name = "userId", value = "秘钥", required = true) @RequestParam Long  userId){
+        return userService.getUserinfo(userId);
     }
 
 

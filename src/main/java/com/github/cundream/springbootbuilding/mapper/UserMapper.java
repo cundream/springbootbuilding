@@ -32,7 +32,7 @@ public interface UserMapper extends Mapper<User> , MySqlMapper<User> {
      * @param id 主键id
      * @return 当前id的用户，不存在则是 {@code null}
      */
-    @Select("SELECT * FROM user WHERE id = #{id}")
+    @Select("SELECT * FROM sec_user WHERE id = #{id}")
     User selectUserById(@Param("id") Long id);
 
 
