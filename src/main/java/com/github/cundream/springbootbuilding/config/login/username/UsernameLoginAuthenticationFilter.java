@@ -50,12 +50,13 @@ public class UsernameLoginAuthenticationFilter extends AbstractAuthenticationPro
             password = jsonObj.getString("password");
             rememberMe = jsonObj.getBoolean("rememberMe");
         }
-        if (username == null){
+        if (StringUtils.isEmpty(username)){
             username = "";
             throw new AuthenticationServiceException("账号或密码不能为空");
         }
-        if (password == null){
+        if (StringUtils.isEmpty(password)){
             password = "";
+            throw new AuthenticationServiceException("账号或密码不能为空");
         }
 
         if (rememberMe == null){

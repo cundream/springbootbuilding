@@ -138,6 +138,13 @@
             <version>${cn.hutool.version}</version>
         </dependency>
 
+        <!-- rabbitmq消息队列 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+
 
         <!--swagger-->
        <!-- <dependency>

@@ -1,7 +1,7 @@
 # Server settings (ServerProperties)
 #端口
 server:
-  port: 8082
+  port: 18082
   address: 0.0.0.0
 #server.sessionTimeout=30
 #访问路径名称
@@ -16,6 +16,26 @@ server:
 
 
 spring:
+  rabbitmq:
+    host: 127.0.0.1
+    #host: 10.106.10.91
+    port: 5672
+    username: admin
+    password: 123456
+    virtual-host: pub
+    publisher-confirms: true   # 开启发送确认
+    publisher-returns: true  # 开启发送失败回退
+      #开启ack
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual #采取手动应答
+        #concurrency: 1 # 指定最小的消费者数量
+        #max-concurrency: 1 #指定最大的消费者数量
+        retry:
+          enabled: true # 是否支持重试
+
   swagger:
     #是否开启
     enabled: true
@@ -69,7 +89,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     master:
-      jdbc-url: jdbc:mysql://192.168.237.63:3306/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: 123456
@@ -88,7 +108,7 @@ spring:
       removeAbandoned: true
       filters: stat
     slave1:
-      jdbc-url: jdbc:mysql://192.168.237.63:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: 123456
@@ -107,7 +127,7 @@ spring:
       removeAbandoned: true
       filters: stat
     slave2:
-      jdbc-url: jdbc:mysql://192.168.237.63:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: 123456
