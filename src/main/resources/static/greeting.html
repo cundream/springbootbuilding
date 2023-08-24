@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>greeting</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        #mainWrapper {
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="mainWrapper">
+    <div id="msgWrapper">
+        <p style="vertical-align: top">发送的消息:</p>
+        <textarea id="msgSent" style="width: 400px;height: 100px"></textarea>
+        <p style="vertical-align: top">收到的消息:</p>
+        <textarea id="msgReceived" style="width: 400px;height: 100px"></textarea>
+    </div>
+    <div style="margin-top: 5px;">
+        <button onclick="connect()">连接</button>
+        <button onclick="sendMessage()">发送消息</button>
+        <button onclick="disconnect()">断开连接</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(() => {
+        $('#msgSent').val('');
+        $("#msgReceived").val('');
+    });
+
+    let stompClient = null;
+
+    // 连接服务器
+    const connect = () => {
+        const token = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDcyODA2Mzc3NjYxMDA5OTIwIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE2OTI3ODI3MDQsInJvbGVzIjpbIueuoeeQhuWRmCJdLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoicGFnZTp0ZXN0In0seyJhdXRob3JpdHkiOiJidG46dGVzdDpxdWVyeSJ9LHsiYXV0aG9yaXR5IjoiYnRuOnRlc3Q6aW5zZXJ0In0seyJhdXRob3JpdHkiOiJwYWdlOm1vbml0b3I6b25saW5lIn0seyJhdXRob3JpdHkiOiJidG46bW9uaXRvcjpvbmxpbmU6cXVlcnkifSx7ImF1dGhvcml0eSI6ImJ0bjptb25pdG9yOm9ubGluZTpraWNrb3V0In0seyJhdXRob3JpdHkiOiJidG46cGFnZTphbGwifV0sImV4cCI6MTY5Mjc4NDUwNH0.w6Rk69PmCQKBj3XzCrH3fZ17stYCdSPeWxQyalPws4w";
+        const ws = new SockJS('https://localhost:18082/bootbuliding/ws',token);
+        stompClient = Stomp.over(ws);
+        stompClient.connect({}, () => {
+            $("#msgReceived").val('Connected to websocket server!');
+            stompClient.subscribe('/topic/greeting', function (message) {
+                    console.log(`Received message: ${message.body}`);
+                    $("#msgReceived").val(message.body);
+                }
+            );
+        });
+    }
+
+    // 断连
+    const disconnect = () => {
+        stompClient.disconnect(() => {
+            $("#msgReceived").val('Disconnected from WebSocket server');
+        });
+    }
+
+    // 发送消息，这里直接发的是文本
+    const sendMessage = () => {
+        stompClient.send('/app/greeting', {}, $('#msgSent').val());
+    }
+</script>
+</body>
+</html>

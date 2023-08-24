@@ -1,5 +1,6 @@
-package com.github.cundream.springbootbuilding.common.rabbitmq;
+package com.github.cundream.springbootbuilding.config.rabbitmq;
 
+import com.github.cundream.springbootbuilding.rabbitmq.consts.RabbitConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -23,9 +24,10 @@ public class RabbitConfig {
 
     @Bean
     public RabbitTemplate rabbitTemplate(CachingConnectionFactory connectionFactory) {
-        connectionFactory.setPublisherConfirms(true);
+        connectionFactory.setPublisherConfirms(true); // 发送消息回调,必须要设置
         connectionFactory.setPublisherReturns(true);
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        //设置开启Mandatory,才能触发回调函数,无论消息推送结果怎么样都强制调用回调函数
         rabbitTemplate.setMandatory(true);
 
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> log.info("消息发送成功:correlationData({}),ack({}),cause({})", correlationData, ack, cause));
@@ -73,6 +75,25 @@ public class RabbitConfig {
         return BindingBuilder.bind(delayQueue).to(delayExchange).with(RabbitConst.DELAY_KEY).noargs();
     }
 
-   
+
+
+
+    @Bean
+    public Queue topicQueue() {
+        return new Queue(RabbitConst.MSG_TOPIC_QUEUE,true);
+    }
+
+    @Bean
+    TopicExchange exchange() {
+        return new TopicExchange(RabbitConst.TOPIC_WEB_SOCKET_EXCHANGE,true,false);
+    }
+
+
+    //将firstQueue和topicExchange绑定,而且绑定的键值为topic.man
+    //这样只要是消息携带的路由键是topic.man,才会分发到该队列
+    @Bean
+    Binding bindingExchangeMessage() {
+        return BindingBuilder.bind(topicQueue()).to(exchange()).with(RabbitConst.MSG_TOPIC_KEY);
+    }
 
 }

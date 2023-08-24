@@ -1,7 +1,6 @@
-package com.github.cundream.springbootbuilding.common.rabbitmq.consumer;
+package com.github.cundream.springbootbuilding.rabbitmq.consumer;
 
-import cn.hutool.json.JSONUtil;
-import com.github.cundream.springbootbuilding.common.rabbitmq.RabbitConst;
+import com.github.cundream.springbootbuilding.rabbitmq.consts.RabbitConst;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
