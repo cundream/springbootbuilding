@@ -1,0 +1,234 @@
+# Server settings (ServerProperties)
+#端口
+server:
+  port: 18082
+  address: 0.0.0.0
+  #server.sessionTimeout=30
+  #访问路径名称
+  servlet:
+    context-path: /bootbuliding
+  ssl:
+    key-store: classpath:cundream.p12
+    key-alias: springboothttps
+    key-store-password: cundream
+
+
+
+
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    #host: 10.106.10.91
+    port: 5672
+    username: admin
+    password: 123456
+    virtual-host: pub
+    publisher-confirms: true   # 开启发送确认
+    publisher-returns: true  # 开启发送失败回退
+    #开启ack
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual #采取手动应答
+        #concurrency: 1 # 指定最小的消费者数量
+        #max-concurrency: 1 #指定最大的消费者数量
+        retry:
+          enabled: true # 是否支持重试
+
+  swagger:
+    #是否开启
+    enabled: true
+    title: SpringBootBuilding系统构建
+    description: 这是一个描述
+    version: 1.0.0-SNAPSHOT
+    contact:
+      name: Lison
+      email: cundream@163.com
+    # swagger扫描的基础包，默认：全扫描
+    #base-package:
+    #需要处理的基础URL规则，默认：/**
+    #base-path:
+    #需要排除的URL规则，默认：空
+    #exclude-path:
+    #是否启用 swagger登陆验证
+    security:
+      filter-plugin: true
+      username: Lison
+      password: 123456
+    global-response-messages:
+      GET[0]:
+        code: 400
+        message: Bad Request，一般为请求参数不对
+      GET[1]:
+        code: 404
+        message: NOT FOUND，一般为请求路径不对
+      GET[2]:
+        code: 500
+        message: ERROR，一般为程序内部错误
+      POST[0]:
+        code: 400
+        message: Bad Request，一般为请求参数不对
+      POST[1]:
+        code: 404
+        message: NOT FOUND，一般为请求路径不对
+      POST[2]:
+        code: 500
+        message: ERROR，一般为程序内部错误
+    global-operation-parameters:
+      - description: 'Token 必填项'
+        modelRef: 'string'
+        name: 'Authorization'
+        parameter-type: 'header'
+        required: true
+      - description:
+        modelRef: 'long'
+        name: 'schoolId'
+        parameter-type: 'header'
+        required: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    master:
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+    slave1:
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+    slave2:
+      jdbc-url: jdbc:mysql://127.0.0.1:3307/springbootbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect:  org.hibernate.dialect.MySQL57InnoDBDialect
+    database: mysql
+  resources:
+    add-mappings: false
+  mvc:
+    static-path-pattern: /web/ #静态资源访问前缀为web
+    throw-exception-if-no-handler-found: true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+    timeout: 5000ms
+
+
+jwt:
+  config:
+    key: Lison
+    ttl: 1800000
+    remeber: 604800000
+
+
+
+
+# Mybatis配置
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+
+
+pagehelper:
+  auto-dialect: true
+  helper-dialect: mysql
+  reasonable: true
+  params: count=countSql
+
+logging:
+  level:
+    com:
+      github:
+        cundream:
+          springbootbuilding: debug
+
+
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+        - "/api/auth/login"
+        - "/api/auth/logout"
+        - "/v2/swagger-login"
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/test/*"
+      get:
+        - "/**/*.html"
+        - "/swagger**"
+        - "/static/**"
+        - "/v2/api-docs"
+        - "/ws/**"
+
+
+## 自定义输入
+com:
+  cundream:
+    title: Spring Boot系统构建--Lison
+    name: Lison SpringBoot
+    desc: ${com.cundream.name}
+    value: ${random.value}N
