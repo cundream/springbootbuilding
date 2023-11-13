@@ -7,10 +7,10 @@ server:
 #访问路径名称
   servlet:
     context-path: /bootbuliding
-  ssl:
-    key-store: classpath:cundream.p12
-    key-alias: springboothttps
-    key-store-password: cundream
+ # ssl:
+  #  key-store: classpath:cundream.p12
+  #  key-alias: springboothttps
+  #  key-store-password: cundream
 
 
 
@@ -216,7 +216,8 @@ custom:
         - "/v2/swagger-login"
       # 需要过滤的请求，不限方法
       pattern:
-        - "/test/*"
+        - "/test/**"
+        - "/ws/**"
       get:
         - "/**/*.html"
         - "/swagger**"

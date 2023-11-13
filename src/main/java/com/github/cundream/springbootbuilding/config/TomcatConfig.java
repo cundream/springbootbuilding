@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date: 2019/10/21 09:59
  * @Description: http请求转发为Https请求
  */
-@Configuration
+//@Configuration
 public class TomcatConfig {
     @Bean
     TomcatServletWebServerFactory tomcatServletWebServerFactory() {

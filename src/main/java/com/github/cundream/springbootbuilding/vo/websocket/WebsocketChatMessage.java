@@ -2,6 +2,8 @@ package com.github.cundream.springbootbuilding.vo.websocket;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @className: com.github.cundream.springbootbuilding.vo.websocket-> ChatMessage
  * @description:
@@ -9,7 +11,7 @@ import lombok.Data;
  * @createDate: 2023-08-17 17:30
  */
 @Data
-public class WebsocketChatMessage {
+public class WebsocketChatMessage implements Serializable {
     private MessageType type;
     private String content;
     private String sender;

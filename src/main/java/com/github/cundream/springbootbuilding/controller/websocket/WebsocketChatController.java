@@ -1,6 +1,7 @@
 package com.github.cundream.springbootbuilding.controller.websocket;
 
 import cn.hutool.json.JSONUtil;
+import com.github.cundream.springbootbuilding.rabbitmq.consts.RabbitConst;
 import com.github.cundream.springbootbuilding.vo.websocket.WebsocketChatMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -47,7 +48,7 @@ public class WebsocketChatController {
             chatMessage.setContent(content);
             chatMessage.setTo(uid);
             chatMessage.setSender("系统消息");
-            rabbitTemplate.convertAndSend("topicWebSocketExchange","topic.public", JSONUtil.toJsonStr(chatMessage));
+            rabbitTemplate.convertAndSend(RabbitConst.TOPIC_WEB_SOCKET_EXCHANGE, RabbitConst.MSG_TOPIC_KEY, JSONUtil.toJsonStr(chatMessage));
 
         }
 
@@ -77,7 +78,7 @@ public class WebsocketChatController {
 
                 String name = principal.getName();
                 chatMessage.setSender(name);
-                rabbitTemplate.convertAndSend("topicWebSocketExchange","topic.public", JSONUtil.toJsonStr(chatMessage));
+                rabbitTemplate.convertAndSend(RabbitConst.TOPIC_WEB_SOCKET_EXCHANGE, RabbitConst.MSG_TOPIC_KEY, JSONUtil.toJsonStr(chatMessage));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -95,7 +96,7 @@ public class WebsocketChatController {
             try {
 
                 System.out.println(chatMessage.toString());
-                rabbitTemplate.convertAndSend("topicWebSocketExchange","topic.public",JSONUtil.toJsonStr(chatMessage));
+                rabbitTemplate.convertAndSend(RabbitConst.TOPIC_WEB_SOCKET_EXCHANGE, RabbitConst.MSG_TOPIC_KEY,JSONUtil.toJsonStr(chatMessage));
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

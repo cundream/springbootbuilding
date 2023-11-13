@@ -28,6 +28,8 @@ public class GetHeaderParamInterceptor extends ChannelInterceptorAdapter {
         System.out.println("----"+message.toString());
         log.info("GetHeaderParamInterceptor--接收消息--preSend");
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+
+        log.info("GetHeaderParamInterceptor--接收消息--accessor" +accessor.toString());
         if (StompCommand.CONNECT.equals(accessor.getCommand())) {
             Object raw = message.getHeaders().get(SimpMessageHeaderAccessor.NATIVE_HEADERS);
             if (raw instanceof Map) {

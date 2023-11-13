@@ -24,7 +24,7 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('https://localhost:18082/bootbuliding/ws',token);
+        var socket = new SockJS('http://localhost:18082/bootbuliding/ws',token);
         stompClient = Stomp.over(socket);
 
         stompClient.connect({
